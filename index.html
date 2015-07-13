@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="plunker">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Facebook API Client</title>
@@ -11,6 +11,11 @@
         <link href='http://fonts.googleapis.com/css?family=Poppins:400,600,700,500,300' rel='stylesheet' type='text/css' />
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,900italic,900,700italic,700,400italic,500,500italic,300,100italic,100,300italic' rel='stylesheet' type='text/css' />
 
+
+        <script src="js/angular/angular.min.js"></script>
+        <script src="js/angular/ngFacebook.js"></script>
+        <script src="js/angular/app.js"></script>
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -20,388 +25,241 @@
 
 
     </head>
-    <body>
-        <header class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 ">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target="#myNavbar">
-                                <span class="glyphicon glyphicon-align-justify"></span>
-                            </button>
-                            <a class="navbar-brand logo" href="#">Ravalic</a>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
-                            <ul class="nav navbar-nav navbar-right menu">
-                                <li><a href="#page-top" class="page-scroll active">Home</a></li>
-                                <li><a href="#section2" class="page-scroll">Features</a></li>
-                                <li><a href="#work" class="page-scroll">Portfolio</a></li>
-                                <li><a href="#section4" class="page-scroll">Contact</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header>
+    <body ng-controller="DemoCtrl">
 
-        <div class="container-fluid main" id="page-top">
+
+        <div class="container-fluid main"  ng-show="!isLoggedIn">
             <div class="row">
                 <div class="col-md-12 backg">
                     <div class="col-md-4 col-md-offset-4 inner col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
                         <div class="text-box">
-                            <p class="intro">Introducing</p>
-                            <h2>Ravalic</h2>
-                            <h3>A Free Responsive HTML5 Template</h3>
-                            <p>By <span><a href="http://www.html5layouts.com">HTML5 Layouts</a></span></p>
-                            <p><a href="#" class="link-button">Tell Me Something</a></p>
+                            <p class="intro">Welcome to </p>
+                            <h2>Facebook API</h2>
+                            <p><a href="#" ng-click="login()" class="link-button">Login With Facebook</a></p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12 some-notes">
-                    <div class="title">
-                        <h2>Welcome To Ravalic</h2>
-                    </div>
-                    <div class="desc">
-                        <p>Ravelic is a free responsive html5 templates released by <a href="http://www.html5templates">HTML5 Layouts</a>. You can use this template for personal as well as commercial purpose but you have to give us a credit link in footer.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="container-fluid features" id="section2">
-            <div class="container">
+        <div ng-show="isLoggedIn">
+            <header class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle menu-button" data-toggle="collapse" data-target="#myNavbar">
+                                    <span class="glyphicon glyphicon-align-justify"></span>
+                                </button>
+                                <a class="navbar-brand logo" href="#">{{name}} Profile</a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
+                                <ul class="nav navbar-nav navbar-right menu">
+                                    <li><a href="#profile" class="page-scroll active">PROFILE</a></li>
+                                    <li><a href="#wall" class="page-scroll">WALL</a></li>
+                                    <li><a href="#photos" class="page-scroll">GALLERIES</a></li>
+                                    <li><a href="#messages" class="page-scroll">MESSAGES</a></li>
+                                    <li><a href="#" ng-click="logout()" class="page-scroll">LOGOUT</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container-fluid main" id="profile">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center features-text">Features</h2>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>Modern Design</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-cog"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>Easy To Customize</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-time"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>Save Time</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-briefcase"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>Professional Work</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>User-friendly Interface</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 icon-box">
-                            <div class="col-md-2 col-sm-2 col-xs-12">
-                                <div class="iconing">
-                                    <i class="glyphicon glyphicon-heart"></i>
-                                </div>
-                            </div>
-                            <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
-                                <h4>Made With Love</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+                    <div class="col-md-12 backg">
+                        <div class="col-md-4 col-md-offset-4 inner col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+                            <div class="text-box">
+                                <p class="intro">Hello</p>
+                                <h2>{{name}}</h2>
+                                <h3>Quotes : "{{quotes}}"</h3>
+                                <p>
+                                    Email : <a href="mailto:{{email}}">{{email}}</a><br />
+                                    Gender : {{gender}}<br />
+                                    Birthday : {{birthday}}<br />
+                                    Location : {{location.name}}<br />
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="container-fluid features" id="wall">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center features-text">Feed</h2>
 
-
-
-
-
-        <div class="container-fluid work" id="work">
-            <div class="container">
-                <div class="row" id="starts">
-                    <div class="col-md-12 col-sm-12 col-xs-12 work-list">
-                        <h2 class="text-center portfolio-text">Portfolio</h2>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story1.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story1.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>Amazing Beauty</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story2.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story2.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>Mind Blowing</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story3.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story3.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>Perfect Shot</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story2.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story2.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>Creative thoughts</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story3.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story3.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>Beautiful Picture</h3>
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 work-space">
-                            <a href="images/story1.png" data-lightbox="image-1">
-                                <div class="featured-img">
-                                    <img src="images/story1.png"/>
-                                </div>
-                                <div class="image-hover">
-                                    <i class="glyphicon glyphicon-eye-open"></i>
-                                </div>
-                                <h3>heart Touching</h3>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid countspace">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 countbg">
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="counter-item">
-                                <i class="glyphicon glyphicon-cloud"></i>
-                                <div class="timer" data-from="0" data-to="100" data-speed="5000" data-refresh-interval="50"></div>
-                                <h5>Files uploaded</h5>                               
+                            {{posting}}
+                            <form id="contact-form">
+                            <div class="form-group">
+                                <textarea type="textarea" class="form-control form-effect" ng-model="posting" placeholder="What's on your mind?" required="required"></textarea>
+                            </div>  
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn-sub" ng-click="postit()">Post</button>
                             </div>
-                        </div>  
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="counter-item">
-                                <i class="glyphicon glyphicon-check"></i>
-                                <div class="timer" data-from="0" data-to="88" data-speed="5000" data-refresh-interval="50"></div>
-                                <h5>Projects completed</h5>                               
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="counter-item">
-                                <i class="glyphicon glyphicon-console"></i>
-                                <div class="timer" data-from="0" data-to="3297" data-speed="5000" data-refresh-interval="50"></div>
-                                <h5>Lines of code written</h5>                                                   
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3">
-                            <div class="counter-item">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <div class="timer" data-from="0" data-to="86" data-speed="5000" data-refresh-interval="50"></div>
-                                <h5>Happy clients</h5>                                                   
-                            </div>     
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid contact" id="section4">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center portfolio-text">Contact</h2>
-                        <div class="col-md-6 col-sm-12 col-xs-12contact-form">
-                            <form role="form">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-effect" id="name" placeholder="Name">
-                                </div>
-                                <div class="form-group">                                 
-                                    <input type="email" class="form-control form-effect" id="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <textarea type="textarea" class="form-control form-effect" id="text" placeholder="Message"></textarea>
-                                </div>  
-                                <button type="submit" class="btn btn-default btn-sub">Submit</button>
                             </form>
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12 address-space">
-                            <div id="map-canvas"></div>
-                            <div class="address">
-                                <h3>Address</h3>
-                                <p><i class="glyphicon glyphicon-map-marker"></i>1234 House Name, City Name, India </p>
-                                <p><i class="glyphicon glyphicon-earphone"></i>(111) 123-4567 | (111) 123-7654 (FAX)</p>
-                                <p><i class="glyphicon glyphicon-envelope"></i>Info@example.com</p>
+
+
+
+                            <div class="col-md-6 col-sm-12 col-xs-12 icon-box" ng-repeat="key in feed.data| limitTo:20" ng-if="key.message">
+                                <div class="col-md-2 col-sm-2 col-xs-12">
+                                    <div class="iconing">
+                                        <i class="glyphicon glyphicon-heart"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-md-offset-1 col-sm-10 col-xs-12 icon-text-box">
+
+                                    {{key.message}}<br>
+                                        <small>{{key.created_time}}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="container-fluid notes">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 notes-bg">
-                    <div class="container">
-                        <div class="col-md-8 col-sm-8 col-xs-12">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                        </div>
-                        <div class="col-md-offset-1 col-md-2 col-md-offset-1 col-sm-offset-1 col-sm-2 col-sm-offset-1 col-xs-12">
-                            <button type="button" class="btn btn-default btneff">Read More</button>
+
+            <div class="container-fluid work" id="photos">
+                <div class="container">
+                    <div class="row" id="starts">
+                        <div class="col-md-12 col-sm-12 col-xs-12 work-list">
+                            <h2 class="text-center portfolio-text">Gallery</h2>
+                            <div class="col-md-4 col-sm-6 col-xs-12 work-space" ng-repeat="photo in photos| limitTo:9">
+                                <a href="{{photo.images[2].source}}" data-lightbox="image-1" data-lightbox-hidpi="{{photo.images[2].source}}">
+                                    <div class="featured-img">
+                                        <img src="{{photo.images[2].source}}"/>
+                                    </div>
+                                    <div class="image-hover">
+                                        <i class="glyphicon glyphicon-eye-open"></i>
+                                    </div>
+                                    <h3>Amazing Photo</h3>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
-        </div>
+            </div>
 
+            <div class="container-fluid contact" id="messages">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center portfolio-text">Messages</h2>
+                            <div class="col-md-6 col-sm-12 col-xs-12contact-form row" ng-repeat="key in messages| limitTo:10">
+                                <div class="col-md-12">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">{{key.to.data[1].name}} - {{key.to.data[0].name}}</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <small>{{key.comments.data[0].created_time}}</small><br>
+                                                {{key.comments.data[0].message}}
 
-
-        <div class="container-fluid footer">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Copyright &copy; Ravalic 2015 By <a href="http://www.html5layouts.com">HTML5 Layouts</a></p>
+                                        </div>
+                                    </div>	
+                                </div>
+                                <hr></hr>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/jquery.countTo.js"></script>
-        <script type="text/javascript" src="js/jquery.waypoints.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js"></script>
-        <script src="js/lightbox.min.js"></script>
-        <script>
-            function initialize() {
-                var mapCanvas = document.getElementById('map-canvas');
-                var mapOptions = {
-                    center: new google.maps.LatLng(26.802100, 75.822739),
-                    zoom: 8,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-                var map = new google.maps.Map(mapCanvas, mapOptions)
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
-        <script>
-            $(document).ready(function () {
-                $(document).on("scroll", onScroll);
 
-                $('a[href^="#"]').on('click', function (e) {
-                    e.preventDefault();
-                    $(document).off("scroll");
+            <div class="container-fluid footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Copyright &copy; 2015 - Developed By <a href="https://www.facebook.com/viqifirdaus95">Viqi Firdaus Sahara</a></p>
+                    </div>
+                </div>
+            </div>
 
-                    $('a').each(function () {
-                        $(this).removeClass('active');
-                    })
-                    $(this).addClass('active');
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="js/jquery.countTo.js"></script>
+            <script type="text/javascript" src="js/jquery.waypoints.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js"></script>
+            <script src="js/lightbox.min.js"></script>
+            <script>
+                                                            function initialize() {
+                                                                var mapCanvas = document.getElementById('map-canvas');
+                                                                var mapOptions = {
+                                                                    center: new google.maps.LatLng(26.802100, 75.822739),
+                                                                    zoom: 8,
+                                                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                                }
+                                                                var map = new google.maps.Map(mapCanvas, mapOptions)
+                                                            }
+                                                            google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
+            <script>
+                        $(document).ready(function () {
+                            $(document).on("scroll", onScroll);
 
-                    var target = this.hash;
-                    $target = $(target);
-                    $('html, body').stop().animate({
-                        'scrollTop': $target.offset().top
-                    }, 500, 'swing', function () {
-                        window.location.hash = target;
-                        $(document).on("scroll", onScroll);
-                    });
-                });
-            });
+                            $('a[href^="#"]').on('click', function (e) {
+                                e.preventDefault();
+                                $(document).off("scroll");
 
-            function onScroll(event) {
-                var scrollPosition = $(document).scrollTop();
-                $('nav a').each(function () {
-                    var currentLink = $(this);
-                    var refElement = $(currentLink.attr("href"));
-                    if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
-                        $('nav ul li a').removeClass("active");
-                        currentLink.addClass("active");
-                    }
-                    else {
-                        currentLink.removeClass("active");
-                    }
-                });
-            }
-        </script>
-        <script type="text/javascript">
-            jQuery(function ($) {
-                // custom formatting example
-                $('.timer').data('countToOptions', {
-                    formatter: function (value, options) {
-                        return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
-                    }
-                });
+                                $('a').each(function () {
+                                    $(this).removeClass('active');
+                                })
+                                $(this).addClass('active');
 
-                // start all the timers
-                $('#starts').waypoint(function () {
-                    $('.timer').each(count);
-                });
+                                var target = this.hash;
+                                $target = $(target);
+                                $('html, body').stop().animate({
+                                    'scrollTop': $target.offset().top
+                                }, 500, 'swing', function () {
+                                    window.location.hash = target;
+                                    $(document).on("scroll", onScroll);
+                                });
+                            });
+                        });
 
-                function count(options) {
-                    var $this = $(this);
-                    options = $.extend({}, options || {}, $this.data('countToOptions') || {});
-                    $this.countTo(options);
-                }
-            });
-        </script>
+                        function onScroll(event) {
+                            var scrollPosition = $(document).scrollTop();
+                            $('nav a').each(function () {
+                                var currentLink = $(this);
+                                var refElement = $(currentLink.attr("href"));
+                                if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
+                                    $('nav ul li a').removeClass("active");
+                                    currentLink.addClass("active");
+                                }
+                                else {
+                                    currentLink.removeClass("active");
+                                }
+                            });
+                        }
+            </script>
+            <script type="text/javascript">
+                        jQuery(function ($) {
+                            // custom formatting example
+                            $('.timer').data('countToOptions', {
+                                formatter: function (value, options) {
+                                    return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+                                }
+                            });
+
+                            // start all the timers
+                            $('#starts').waypoint(function () {
+                                $('.timer').each(count);
+                            });
+
+                            function count(options) {
+                                var $this = $(this);
+                                options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+                                $this.countTo(options);
+                            }
+                        });
+            </script>
     </body>
 </html>
